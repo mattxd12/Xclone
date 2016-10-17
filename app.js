@@ -115,6 +115,9 @@ app.controller('app', function($scope) {
       post.showNewComments = false;
       $scope.newComment = {};
     }
+    else {
+      alert('Please Complete the Form');
+    }
   };
 
 });
