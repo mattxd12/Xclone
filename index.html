@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html ng-app="Xclone">
+  <head>
+    <meta name="viewport" charset="UTF-8"  content="width=device-width, initial-scale=1">
+    <title>Xclone</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body ng-controller='app'>
+
+    <div class="desktopOnly">
+      <nav class="navbar navbar-default col-lg-12">
+        <div class="ng-cloak container-fluid">
+            <a class="navbar-brand rotate" href="#">X Clone</a>
+            <ul class="nav navbar-nav">
+              <li><a class='linkCursor' ng-click="toggleNewPostView()"><span class=" glyphicon glyphicon-plus"></span> Submit a Post</a></li>
+            <li class="navbar-form">
+              <div class="form-inline">
+                <input type="text" placeholder="search" class="form-control" ng-model="view.search">
+              </div>
+            </li>
+            <li class="dropdown ng-cloak">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                <span>Sort by {{ view.currentSort }}</span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="type in view.sortTypes"><a href="#" ng-click="setOrderVal(type)">Sort by {{ type }}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+<!-- HEADER TOOLBAR FOR MOBILE -->
+    <div class="mobileOnly">
+      <nav class="navbar navbar-default col-lg-12">
+        <div class="ng-cloak container-fluid">
+          <a class="navbar-brand rotate">X Clone</a>
+          <ul class="nav navbar-nav">
+            <li class="moveRight"><a class='linkCursor' ng-click="toggleNewPostView()"><span class=" glyphicon glyphicon-plus"></span> Submit a Post</a></li>
+            <li class="navbar-form" ng-class="{ hide: view.isClicked }">
+              <div class="form-inline">
+                <input type="text" placeholder="search" class="form-control" ng-model="view.search">
+              </div>
+            </li>
+            <li class="dropdown ng-cloak" ng-class="{ hide: view.isClicked }">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                <span>Sort by {{ view.currentSort }}</span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" ng-class="{ hide: view.isClicked }">
+                <li ng-repeat="type in view.sortTypes" ><a href="#" ng-click="setOrderVal(type)">Sort by {{ type }}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Add New Post -->
+    <div class="container ng-cloak">
+      <form name="postForm" ng-submit="addPost(newPost)" ng-show="view.newPostVisible" class="newForm col-lg-11">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" name="title" placeholder="Title" ng-model="newPost.title" required>
+          <p ng-show="postForm.title"</p>
+        </div>
+        <div class="form-group" >
+          <label for="author">Author</label>
+          <input type="text" class="form-control" name="author" placeholder="Author" ng-model="newPost.author" required>
+          <p ng-show="postForm.author"</p>
+        </div>
+        <div class="form-group">
+          <label for="img">Image URL</label>
+          <input type="text" class="form-control" name="img" placeholder="img URL" ng-model="newPost.img" required>
+          <p ng-show="postForm.img"</p>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" name="description" placeholder="Description" ng-model="newPost.description" required>
+          <p ng-show="postForm.description"</p>
+        </div>
+        <input type="submit" class="btn btn-default" value="Add Post">
+      </form>
+    </div>
+
+    <!-- Post Card Views -->
+    <div class="container">
+      <div class="ng-cloak row animate border" ng-repeat="post in view.posts | orderBy: view.orderVal | filter: view.search" ng-animate="'animate'">
+        <div class="col-xs-2 imgContainer">
+          <img class='imgThumb img-thumbnail'  ng-mouseenter="imgHover = true" ng-mouseleave="imgHover = false" ng-src="{{ post.img }}" />
+        </div>
+        <div class="col-xs-offset-2 col-xs-10" ng-class= "{pushRight: imgHover, pushLeft: !imgHover}">
+          <h4>
+            {{ post.title }} |
+            <span class="glyphicon glyphicon-arrow-up" ng-click="updateVotes(post,1)"></span>
+            <span class="glyphicon glyphicon-arrow-down" ng-click="updateVotes(post,-1)"></span>
+            <span ng-class="voteColorClass(post)">{{ post.votes }}</span>
+          </h4>
+          <p class="pull-right">By {{ post.author }}</p>
+          <br>
+          <p class="clear">{{ post.description }}</p>
+          <p>
+            <span class="glyphicon glyphicon-calendar"></span>
+            {{ post.date }} |
+            <span class="linkCursor" ng-click="toggleCommentView(post)">
+              <span class="glyphicon glyphicon-comment"></span> {{ post.comments.length }}
+              <ng-pluralize count="post.comments.length" when="{ 1: 'comment', 'other': 'comments' }"></ng-pluralize>
+            </span>
+            <span class="linkCursor desktopOnly" ng-click="toggleNewCommentView(post)">
+              |
+              <span class="glyphicon glyphicon-pencil"></span>
+              Add comment
+            </span>
+            <div class="mobileOnly centerDiv">
+              <span class="linkCursor" ng-click="toggleNewCommentView(post)">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Add comment
+              </span>
+            </div>
+          </p>
+
+          <!-- Show Comments -->
+          <div class="comment" ng-show="post.showComments">
+            <p ng-repeat="comment in post.comments">
+              <strong>{{ comment.author }}</strong> - {{ comment.text }}
+            </p>
+          </div>
+
+            <!-- Comment Form -->
+          <div class="comment" ng-show="post.showNewComments">
+            <form class="form-inline" ng-submit="addComment(post, newComment)">
+              <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" placeholder="author" class="form-control" ng-model="newComment.author">
+              </div>
+              <div class="form-group">
+                <label for="text">Text</label>
+                <input type="text" placeholder="text" class="form-control" ng-model="newComment.text">
+              </div>
+              <input class="btn btn-success" type="submit" value="Add Comment">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

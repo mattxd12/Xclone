@@ -1,0 +1,219 @@
+.mobileOnly { display: none; }
+
+.imgThumb {
+  height: 200px;
+  width: auto;
+  max-width: 200px;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  transition: all 2s ease;
+  z-index: 2;
+}
+
+.imgThumb:hover {
+  height: 400px;
+  width: auto;
+  max-height: 600px;
+  max-width: 400px;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  transition: all 2s ease;
+  z-index: 2;
+}
+
+.imgThumb:hover > .imgContainer {
+  height: 600px;
+  z-index: 2;
+}
+
+.imgContainer {
+  z-index: 2;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  transition: all 2s ease;
+}
+
+.border {
+  border: black 1.5px solid;
+  margin-top: 5px;
+}
+
+.positive { color: green; }
+
+.negative { color: red; }
+
+.linkCursor {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.ng-cloak { display: none !important; }
+
+.rotate:hover { transform: rotate(360deg); }
+
+.rotate { transition: all 0.5s ease-in-out; }
+
+input[type=text]:focus { width: 110%; }
+
+.animate:hover { background-color: rgb(180, 180, 180) !important; }
+
+.animate { background-color: rgb(230, 230, 230); }
+
+div > .imgContainer { padding-left: 0 !important; }
+
+.row.ng-enter {
+  z-index: -5;
+  transform: translateY(100%);
+  transition: .3s ease all;
+  opacity:.3;
+}
+
+.row.ng-enter.ng-enter-active {
+  transform: translateY(0%);
+  opacity:.8;
+}
+
+.row.ng-leave {
+  z-index: -5;
+  transform: translateY(0%);
+  transition: .3s ease all;
+  opacity:.5;
+}
+
+.row.ng-leave.ng-leave-active {
+  transform: translateY(100%);
+  opacity:0;
+}
+
+.pushRight {
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+  /*margin-left: 200px !important;*/
+  transition: 2s ease all !important;
+  opacity:.9;
+}
+
+.pushLeft {
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  width: 83.33333333% !important;
+  transition: 2s ease all !important;
+}
+
+@media only screen and (max-width: 1200px) {
+  .pushRight {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    /*margin-left: 200px !important;*/
+    transition: 2s ease all !important;
+    opacity:.9;
+  }
+
+  .pushLeft {
+    margin-left: 70px !important;
+    width: 70% !important;
+    transition: 2s ease all !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    html.ng-scope { width: 100% !important; }
+
+    .desktopOnly { display: none !important; }
+
+    .mobileOnly {
+      display: block;
+      width: 100%;
+    }
+
+    .centerDiv {
+      display: flex;
+      justify-content: center;
+    }
+
+    .imgThumb {
+      height: 100px;
+      width: auto;
+      /*max-width: 100px;*/
+      -webkit-transition: all 2s ease;
+      -moz-transition: all 2s ease;
+      transition: all 2s ease;
+    }
+
+    .imgThumb:hover {
+      height: auto;
+      width: 100%;
+      /*max-width: 412px;*/
+      -webkit-transition: all 2s ease;
+      -moz-transition: all 2s ease;
+      transition: all 2s ease;
+      z-index: 2;
+    }
+
+    .imgThumb:hover > .imgContainer {
+      height: 200px;
+      z-index: 2;
+    }
+
+    .imgContainer {
+      width: 100%;
+      -webkit-transition: all 2s ease;
+      -moz-transition: all 2s ease;
+      transition: all 2s ease;
+      padding-right: 0 !important;
+    }
+
+    .row.ng-enter {
+      transform: translateY(100%);
+      transition: .3s ease all;
+      opacity:.3;
+    }
+
+    .row.ng-enter.ng-enter-active {
+      transform: translateY(0%);
+      transition: .3s ease all;
+      opacity:.8;
+    }
+
+    .row.ng-leave {
+      transform: translateY(0%);
+      transition: .3s ease all;
+      opacity:.5;
+    }
+
+    .row.ng-leave.ng-leave-active {
+      transform: translateY(100%);
+      transition: .3s ease all;
+      opacity:0;
+    }
+
+    .pushRight {
+      /*push down for mobile*/
+      width: 100% !important;
+      margin-top: 8% !important;
+      margin-left: 1% !important;
+      transition: 2s ease all !important;
+      opacity:.9;
+    }
+
+    .pushLeft {      /*pushing up for mobile*/
+      width: 100% !important;
+      transition: 2s ease all !important;
+      margin-left: 0 !important;
+    }
+
+    input[type=text]:focus { width: 100%; }
+
+    .navbar-brand {
+      height:100%;
+      line-height: 150%;
+      text-align: center;
+    }
+
+    .moveRight { margin-left: 60% !important; }
+
+    .hide { display: none }
+}
