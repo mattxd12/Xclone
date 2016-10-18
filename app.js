@@ -76,10 +76,10 @@ app.controller('app', function($scope) {
     }
   };
 
-  $scope.setOrderVal = function(newVal) {
-    $scope.view.currentSort = newVal;
-    $scope.view.orderVal = newVal === "title" ? newVal : '-' + newVal;
-  };
+    $scope.setOrderVal = function(newVal) {
+      $scope.view.currentSort = newVal;
+      $scope.view.orderVal = newVal === "title" ? newVal : '-' + newVal;
+    };
 
   $scope.toggleCommentView = function(post) {
     post.showComments = !post.showComments;
@@ -106,6 +106,7 @@ app.controller('app', function($scope) {
     $scope.view.newPostVisible = false;
     $scope.newPost = {};
     $scope.view.posts.push(post);
+    $scope.postForm.$setPristine();
     $scope.postForm.$setUntouched();
   };
 
@@ -119,5 +120,4 @@ app.controller('app', function($scope) {
       alert('Please Complete the Form');
     }
   };
-
 });

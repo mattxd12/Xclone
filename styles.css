@@ -53,7 +53,7 @@
 
 .rotate { transition: all 0.5s ease-in-out; }
 
-input[type=text]:focus { width: 110%; }
+.expand:focus { width: 110%; }
 
 .animate:hover { background-color: rgb(180, 180, 180) !important; }
 
@@ -89,7 +89,6 @@ div > .imgContainer { padding-left: 0 !important; }
   margin-top: 0 !important;
   margin-left: 0 !important;
   width: 100% !important;
-  /*margin-left: 200px !important;*/
   transition: 2s ease all !important;
   opacity:.9;
 }
@@ -115,6 +114,10 @@ div > .imgContainer { padding-left: 0 !important; }
     margin-left: 70px !important;
     width: 70% !important;
     transition: 2s ease all !important;
+  }
+  .flex {
+    display: flex;
+    justify-content: space-between;
   }
 }
 
